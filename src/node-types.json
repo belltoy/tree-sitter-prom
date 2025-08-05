@@ -1,5 +1,10 @@
 [
   {
+    "type": "comment",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "help_line",
     "named": true,
     "fields": {},
@@ -158,10 +163,6 @@
   {
     "type": "TYPE",
     "named": false
-  },
-  {
-    "type": "comment",
-    "named": true
   },
   {
     "type": "counter",

@@ -17,13 +17,17 @@ module.exports = grammar({
 
     _line: $ => choice($.metric_line, $._comment_line),
 
-    _comment_line: $ => seq("#", prec.left(choice($.help_line, $.type_line, $.comment))),
+    _comment_line: $ => choice(
+      $.help_line,
+      $.type_line,
+      $.comment,
+    ),
 
-    help_line: $ => seq(token("HELP"), $.metric_name, $.metric_help),
+    help_line: $ => seq(token("#"), token("HELP"), $.metric_name, $.metric_help),
 
-    type_line: $ => seq(token("TYPE"), $.metric_name, $.metric_type),
+    type_line: $ => seq(token("#"), token("TYPE"), $.metric_name, $.metric_type),
 
-    comment: $ => token(prec(-10, /[^\n]*/)),
+    comment: $ => seq(token("#"), token(prec(-10, /[^\n]*/))),
 
     metric_type: $ => choice("counter", "gauge", "histogram", "summary", "untyped"),
 

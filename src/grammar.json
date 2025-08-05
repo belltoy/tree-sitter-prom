@@ -40,38 +40,32 @@
       ]
     },
     "_comment_line": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "STRING",
-          "value": "#"
+          "type": "SYMBOL",
+          "name": "help_line"
         },
         {
-          "type": "PREC_LEFT",
-          "value": 0,
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "help_line"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "type_line"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "comment"
-              }
-            ]
-          }
+          "type": "SYMBOL",
+          "name": "type_line"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "comment"
         }
       ]
     },
     "help_line": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "#"
+          }
+        },
         {
           "type": "TOKEN",
           "content": {
@@ -96,6 +90,13 @@
           "type": "TOKEN",
           "content": {
             "type": "STRING",
+            "value": "#"
+          }
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "STRING",
             "value": "TYPE"
           }
         },
@@ -110,15 +111,27 @@
       ]
     },
     "comment": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": -10,
-        "content": {
-          "type": "PATTERN",
-          "value": "[^\\n]*"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "#"
+          }
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": -10,
+            "content": {
+              "type": "PATTERN",
+              "value": "[^\\n]*"
+            }
+          }
         }
-      }
+      ]
     },
     "metric_type": {
       "type": "CHOICE",
