@@ -1,0 +1,40 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "prom",
+      "camelcase": "Prom",
+      "title": "Prometheus' text-based format",
+      "scope": "source.prom",
+      "file-types": [
+        "prom"
+      ],
+      "injection-regex": "^prom$",
+      "class-name": "TreeSitterProm"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Prometheus's text-based format",
+    "authors": [
+      {
+        "name": "Zhongqiu Zhao",
+        "email": "belltoy@gmail.com",
+        "url": "https://belltoy.net/"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/belltoy/tree-sitter-prom.git"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
+  }
+}

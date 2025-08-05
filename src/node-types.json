@@ -1,0 +1,218 @@
+[
+  {
+    "type": "help_line",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "metric_help",
+          "named": true
+        },
+        {
+          "type": "metric_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "label",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "label_name",
+          "named": true
+        },
+        {
+          "type": "label_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "label_set",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "label",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "metric_line",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "label_set",
+          "named": true
+        },
+        {
+          "type": "metric_name",
+          "named": true
+        },
+        {
+          "type": "metric_value",
+          "named": true
+        },
+        {
+          "type": "timestamp",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "metric_type",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "source_file",
+    "named": true,
+    "root": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "help_line",
+          "named": true
+        },
+        {
+          "type": "metric_line",
+          "named": true
+        },
+        {
+          "type": "type_line",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_line",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "metric_name",
+          "named": true
+        },
+        {
+          "type": "metric_type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "\n",
+    "named": false
+  },
+  {
+    "type": "\"",
+    "named": false
+  },
+  {
+    "type": "#",
+    "named": false
+  },
+  {
+    "type": ",",
+    "named": false
+  },
+  {
+    "type": "=",
+    "named": false
+  },
+  {
+    "type": "HELP",
+    "named": false
+  },
+  {
+    "type": "TYPE",
+    "named": false
+  },
+  {
+    "type": "comment",
+    "named": true
+  },
+  {
+    "type": "counter",
+    "named": false
+  },
+  {
+    "type": "gauge",
+    "named": false
+  },
+  {
+    "type": "histogram",
+    "named": false
+  },
+  {
+    "type": "label_name",
+    "named": true
+  },
+  {
+    "type": "label_value",
+    "named": true
+  },
+  {
+    "type": "metric_help",
+    "named": true
+  },
+  {
+    "type": "metric_name",
+    "named": true
+  },
+  {
+    "type": "metric_value",
+    "named": true
+  },
+  {
+    "type": "summary",
+    "named": false
+  },
+  {
+    "type": "timestamp",
+    "named": true
+  },
+  {
+    "type": "untyped",
+    "named": false
+  },
+  {
+    "type": "{",
+    "named": false
+  },
+  {
+    "type": "}",
+    "named": false
+  }
+]
