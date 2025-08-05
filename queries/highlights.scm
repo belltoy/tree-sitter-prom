@@ -26,3 +26,6 @@
 [ "=" ] @operator
 
 [ "," ] @punctuation.comma
+
+((label_name) @attribute.builtin
+ (#eq? @attribute.builtin "le"))
