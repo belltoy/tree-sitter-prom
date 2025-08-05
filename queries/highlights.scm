@@ -20,3 +20,9 @@
 (metric_value) @number.float
 
 (timestamp) @number
+
+[ "{" "}"] @punctuation.bracket
+
+[ "=" ] @operator
+
+[ "," ] @punctuation.comma
