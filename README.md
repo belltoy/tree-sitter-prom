@@ -1,6 +1,6 @@
 # tree-sitter-prom
 
-[Prometheus' text-based format](https://prometheus.io/docs/instrumenting/exposition_formats) grammar for [tree-sitter]().
+[Prometheus' text-based format](https://prometheus.io/docs/instrumenting/exposition_formats) grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter).
 
 ## Features
 
