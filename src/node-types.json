@@ -5,41 +5,91 @@
     "fields": {}
   },
   {
-    "type": "help_line",
+    "type": "expression",
     "named": true,
-    "fields": {},
+    "fields": {
+      "metric_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "metric_value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "timestamp": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
         {
-          "type": "metric_help",
-          "named": true
-        },
-        {
-          "type": "metric_name",
+          "type": "label_set",
           "named": true
         }
       ]
     }
   },
   {
+    "type": "help_line",
+    "named": true,
+    "fields": {
+      "metric_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "label",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "label_name",
-          "named": true
-        },
-        {
-          "type": "label_value",
-          "named": true
-        }
-      ]
+    "fields": {
+      "label_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "label_value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -58,41 +108,19 @@
     }
   },
   {
-    "type": "metric_line",
+    "type": "sample",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "label_set",
-          "named": true
-        },
-        {
-          "type": "metric_name",
-          "named": true
-        },
-        {
-          "type": "metric_value",
-          "named": true
-        },
-        {
-          "type": "timestamp",
+          "type": "expression",
           "named": true
         }
       ]
     }
-  },
-  {
-    "type": "metric_type",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "metric_value",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "source_file",
@@ -112,7 +140,7 @@
           "named": true
         },
         {
-          "type": "metric_line",
+          "type": "sample",
           "named": true
         },
         {
@@ -123,22 +151,34 @@
     }
   },
   {
+    "type": "string",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "type_line",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "metric_name",
-          "named": true
-        },
-        {
-          "type": "metric_type",
-          "named": true
-        }
-      ]
+    "fields": {
+      "metric_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "metric_type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -154,15 +194,7 @@
     "named": false
   },
   {
-    "type": "+Inf",
-    "named": false
-  },
-  {
     "type": ",",
-    "named": false
-  },
-  {
-    "type": "-Inf",
     "named": false
   },
   {
@@ -174,52 +206,20 @@
     "named": false
   },
   {
-    "type": "NaN",
-    "named": false
-  },
-  {
     "type": "TYPE",
     "named": false
   },
   {
-    "type": "counter",
-    "named": false
-  },
-  {
-    "type": "gauge",
-    "named": false
-  },
-  {
-    "type": "histogram",
-    "named": false
-  },
-  {
-    "type": "label_name",
+    "type": "identifier",
     "named": true
   },
   {
-    "type": "label_value",
+    "type": "number",
     "named": true
   },
   {
-    "type": "metric_help",
+    "type": "type",
     "named": true
-  },
-  {
-    "type": "metric_name",
-    "named": true
-  },
-  {
-    "type": "summary",
-    "named": false
-  },
-  {
-    "type": "timestamp",
-    "named": true
-  },
-  {
-    "type": "untyped",
-    "named": false
   },
   {
     "type": "{",

@@ -5,25 +5,8 @@
     "source_file": {
       "type": "REPEAT",
       "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "_line"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          },
-          {
-            "type": "STRING",
-            "value": "\n"
-          }
-        ]
+        "type": "SYMBOL",
+        "name": "_line"
       }
     },
     "_line": {
@@ -31,11 +14,15 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "metric_line"
+          "name": "sample"
         },
         {
           "type": "SYMBOL",
           "name": "_comment_line"
+        },
+        {
+          "type": "STRING",
+          "value": "\n"
         }
       ]
     },
@@ -74,12 +61,24 @@
           }
         },
         {
-          "type": "SYMBOL",
-          "name": "metric_name"
+          "type": "FIELD",
+          "name": "metric_name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_metric_name"
+          }
         },
         {
-          "type": "SYMBOL",
-          "name": "metric_help"
+          "type": "FIELD",
+          "name": "metric_help",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_escaped_string"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "\n"
         }
       ]
     },
@@ -101,12 +100,24 @@
           }
         },
         {
-          "type": "SYMBOL",
-          "name": "metric_name"
+          "type": "FIELD",
+          "name": "metric_name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_metric_name"
+          }
         },
         {
-          "type": "SYMBOL",
-          "name": "metric_type"
+          "type": "FIELD",
+          "name": "metric_type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_metric_type"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "\n"
         }
       ]
     },
@@ -130,44 +141,57 @@
               "value": "[^\\n]*"
             }
           }
+        },
+        {
+          "type": "STRING",
+          "value": "\n"
         }
       ]
     },
-    "metric_type": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "counter"
-        },
-        {
-          "type": "STRING",
-          "value": "gauge"
-        },
-        {
-          "type": "STRING",
-          "value": "histogram"
-        },
-        {
-          "type": "STRING",
-          "value": "summary"
-        },
-        {
-          "type": "STRING",
-          "value": "untyped"
-        }
-      ]
+    "_metric_type": {
+      "type": "ALIAS",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "counter"
+          },
+          {
+            "type": "STRING",
+            "value": "gauge"
+          },
+          {
+            "type": "STRING",
+            "value": "histogram"
+          },
+          {
+            "type": "STRING",
+            "value": "summary"
+          },
+          {
+            "type": "STRING",
+            "value": "untyped"
+          }
+        ]
+      },
+      "named": true,
+      "value": "type"
     },
-    "metric_help": {
-      "type": "PATTERN",
-      "value": "[^\\n]*"
+    "sample": {
+      "type": "SYMBOL",
+      "name": "expression"
     },
-    "metric_line": {
+    "expression": {
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "metric_name"
+          "type": "FIELD",
+          "name": "metric_name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_metric_name"
+          }
         },
         {
           "type": "CHOICE",
@@ -182,26 +206,43 @@
           ]
         },
         {
-          "type": "SYMBOL",
-          "name": "metric_value"
+          "type": "FIELD",
+          "name": "metric_value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_metric_value"
+          }
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "timestamp"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+          "type": "FIELD",
+          "name": "timestamp",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_timestamp"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "\n"
         }
       ]
     },
-    "metric_name": {
-      "type": "PATTERN",
-      "value": "[a-zA-Z_:][a-zA-Z0-9_:]*"
+    "_metric_name": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[a-zA-Z_:][a-zA-Z0-9_:]*"
+      },
+      "named": true,
+      "value": "identifier"
     },
     "label_set": {
       "type": "SEQ",
@@ -265,63 +306,100 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "label_name"
+          "type": "FIELD",
+          "name": "label_name",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_label_name"
+            },
+            "named": true,
+            "value": "identifier"
+          }
         },
         {
           "type": "STRING",
           "value": "="
         },
         {
-          "type": "STRING",
-          "value": "\""
-        },
-        {
-          "type": "SYMBOL",
-          "name": "label_value"
-        },
-        {
-          "type": "STRING",
-          "value": "\""
+          "type": "FIELD",
+          "name": "label_value",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_label_value"
+            },
+            "named": true,
+            "value": "string"
+          }
         }
       ]
     },
-    "label_name": {
+    "_label_name": {
       "type": "PATTERN",
       "value": "[a-zA-Z_][a-zA-Z0-9_]*"
     },
-    "label_value": {
-      "type": "PATTERN",
-      "value": "([^\"\\\\]|\\\\.)*"
-    },
-    "metric_value": {
-      "type": "CHOICE",
+    "_label_value": {
+      "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "_float_value"
+          "type": "STRING",
+          "value": "\""
+        },
+        {
+          "type": "PATTERN",
+          "value": "([^\"\\\\\\n]|\\\\[\"\\\\n])*"
         },
         {
           "type": "STRING",
-          "value": "NaN"
-        },
-        {
-          "type": "STRING",
-          "value": "+Inf"
-        },
-        {
-          "type": "STRING",
-          "value": "-Inf"
+          "value": "\""
         }
       ]
+    },
+    "_metric_value": {
+      "type": "ALIAS",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_float_value"
+          },
+          {
+            "type": "STRING",
+            "value": "NaN"
+          },
+          {
+            "type": "STRING",
+            "value": "+Inf"
+          },
+          {
+            "type": "STRING",
+            "value": "-Inf"
+          }
+        ]
+      },
+      "named": true,
+      "value": "number"
     },
     "_float_value": {
       "type": "PATTERN",
       "value": "[+-]?([0-9]*[.])?[0-9]+([eE][+-]?[0-9]+)?"
     },
-    "timestamp": {
+    "_timestamp": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[0-9]+"
+      },
+      "named": true,
+      "value": "number"
+    },
+    "_escaped_string": {
       "type": "PATTERN",
-      "value": "[0-9]+"
+      "value": "([^\\n\\\\]|\\\\[n\\\\])*"
     }
   },
   "extras": [

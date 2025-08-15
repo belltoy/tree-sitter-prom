@@ -9,20 +9,23 @@
   "HELP"
 ] @keyword
 
-(metric_type) @type.builtin
+(type) @type.builtin
 
-(metric_name) @variable
+(identifier) @type
 
-(label_name) @label
+(label
+  label_name: (identifier) @property
+  label_value: (string) @string)
 
-((label_name) @attribute.builtin
+(label
+  label_name: (identifier) @attribute.builtin
  (#eq? @attribute.builtin "le"))
 
-(label_value) @string
+(expression
+  metric_value: (number) @number.float)
 
-(metric_value) @number.float
-
-(timestamp) @number
+(expression
+  timestamp: (number) @number)
 
 [ "{" "}"] @punctuation.bracket
 

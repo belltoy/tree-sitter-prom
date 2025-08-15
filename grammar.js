@@ -13,9 +13,12 @@ module.exports = grammar({
   extras: ($) => [' '],
 
   rules: {
-    source_file: $ => repeat(seq(optional($._line), '\n')),
+    source_file: $ => repeat($._line),
 
-    _line: $ => choice($.metric_line, $._comment_line),
+    _line: $ => choice(
+      $.sample,
+      $._comment_line,
+      '\n'),
 
     _comment_line: $ => choice(
       $.help_line,
@@ -23,34 +26,59 @@ module.exports = grammar({
       $.comment,
     ),
 
-    help_line: $ => seq(token("#"), token("HELP"), $.metric_name, $.metric_help),
+    help_line: $ => seq(
+      token("#"),
+      token("HELP"),
+      field("metric_name", $._metric_name),
+      field("metric_help", $._escaped_string),
+      '\n'
+    ),
 
-    type_line: $ => seq(token("#"), token("TYPE"), $.metric_name, $.metric_type),
+    type_line: $ => seq(
+      token("#"),
+      token("TYPE"),
+      field("metric_name", $._metric_name),
+      field("metric_type", $._metric_type),
+      '\n'
+    ),
 
-    comment: $ => seq(token("#"), token(prec(-10, /[^\n]*/))),
+    comment: $ => seq(token("#"), token(prec(-10, /[^\n]*/)), '\n'),
 
-    metric_type: $ => choice("counter", "gauge", "histogram", "summary", "untyped"),
+    _metric_type: $ => alias(
+      choice("counter", "gauge", "histogram", "summary", "untyped"),
+      $.type
+    ),
 
-    metric_help: $ => /[^\n]*/,
+    sample: $ => $.expression,
 
-    metric_line: $ => seq($.metric_name, optional($.label_set), $.metric_value, optional($.timestamp)),
+    expression: $ => seq(
+      field("metric_name", $._metric_name),
+      optional($.label_set),
+      field("metric_value", $._metric_value),
+      field("timestamp", optional($._timestamp)),
+      '\n'
+    ),
 
-    metric_name: $ => /[a-zA-Z_:][a-zA-Z0-9_:]*/,
+    _metric_name: $ => alias(/[a-zA-Z_:][a-zA-Z0-9_:]*/, $.identifier),
 
     label_set: $ => seq("{", optional(seq($.label, repeat(seq(",", $.label)), optional(","))), "}"),
 
-    label: $ => seq($.label_name, "=", '"', $.label_value, '"'),
+    label: $ => seq(
+      field("label_name", alias($._label_name, $.identifier)),
+      "=",
+      field("label_value", alias($._label_value, $.string)),
+    ),
 
-    label_name: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+    _label_name: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
-    label_value: $ => /([^"\\]|\\.)*/,
+    _label_value: $ => seq('"', /([^"\\\n]|\\["\\n])*/, '"'),
 
-    metric_value: $ => choice(
+    _metric_value: $ => alias(choice(
       $._float_value,
       "NaN",
       "+Inf",
       "-Inf",
-    ),
+    ), $.number),
 
     // FIXME: Parse go's float literal
     // https://go.dev/ref/spec#Floating-point_literals
@@ -58,6 +86,8 @@ module.exports = grammar({
 
     // FIXME: Parse go's integer literal
     // https://go.dev/ref/spec#Integer_literals
-    timestamp: $ => /[0-9]+/,
+    _timestamp: $ => alias(/[0-9]+/, $.number),
+
+    _escaped_string: $ => /([^\n\\]|\\[n\\])*/,
   }
 });
