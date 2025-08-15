@@ -45,8 +45,19 @@ module.exports = grammar({
 
     label_value: $ => /([^"\\]|\\.)*/,
 
-    metric_value: $ => /[+-]?([0-9]*[.])?[0-9]+([eE][+-]?[0-9]+)?/,
+    metric_value: $ => choice(
+      $._float_value,
+      "NaN",
+      "+Inf",
+      "-Inf",
+    ),
 
+    // FIXME: Parse go's float literal
+    // https://go.dev/ref/spec#Floating-point_literals
+    _float_value: $ => /[+-]?([0-9]*[.])?[0-9]+([eE][+-]?[0-9]+)?/,
+
+    // FIXME: Parse go's integer literal
+    // https://go.dev/ref/spec#Integer_literals
     timestamp: $ => /[0-9]+/,
   }
 });

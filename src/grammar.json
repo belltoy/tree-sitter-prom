@@ -295,6 +295,27 @@
       "value": "([^\"\\\\]|\\\\.)*"
     },
     "metric_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_float_value"
+        },
+        {
+          "type": "STRING",
+          "value": "NaN"
+        },
+        {
+          "type": "STRING",
+          "value": "+Inf"
+        },
+        {
+          "type": "STRING",
+          "value": "-Inf"
+        }
+      ]
+    },
+    "_float_value": {
       "type": "PATTERN",
       "value": "[+-]?([0-9]*[.])?[0-9]+([eE][+-]?[0-9]+)?"
     },
