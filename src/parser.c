@@ -43,7 +43,7 @@ enum ts_symbol_identifiers {
   anon_sym_DASHInf = 21,
   sym__float_value = 22,
   aux_sym__timestamp_token1 = 23,
-  sym__escaped_string = 24,
+  sym_docstring = 24,
   sym_source_file = 25,
   sym__line = 26,
   sym__comment_line = 27,
@@ -88,7 +88,7 @@ static const char * const ts_symbol_names[] = {
   [anon_sym_DASHInf] = "number",
   [sym__float_value] = "number",
   [aux_sym__timestamp_token1] = "number",
-  [sym__escaped_string] = "_escaped_string",
+  [sym_docstring] = "docstring",
   [sym_source_file] = "source_file",
   [sym__line] = "_line",
   [sym__comment_line] = "_comment_line",
@@ -133,7 +133,7 @@ static const TSSymbol ts_symbol_map[] = {
   [anon_sym_DASHInf] = anon_sym_NaN,
   [sym__float_value] = anon_sym_NaN,
   [aux_sym__timestamp_token1] = anon_sym_NaN,
-  [sym__escaped_string] = sym__escaped_string,
+  [sym_docstring] = sym_docstring,
   [sym_source_file] = sym_source_file,
   [sym__line] = sym__line,
   [sym__comment_line] = sym__comment_line,
@@ -250,8 +250,8 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = true,
     .named = true,
   },
-  [sym__escaped_string] = {
-    .visible = false,
+  [sym_docstring] = {
+    .visible = true,
     .named = true,
   },
   [sym_source_file] = {
@@ -801,14 +801,14 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (('0' <= lookahead && lookahead <= '9')) ADVANCE(86);
       END_STATE();
     case 87:
-      ACCEPT_TOKEN(sym__escaped_string);
+      ACCEPT_TOKEN(sym_docstring);
       if (lookahead == ' ') ADVANCE(87);
       if (lookahead == '\\') ADVANCE(48);
       if (lookahead != 0 &&
           lookahead != '\n') ADVANCE(88);
       END_STATE();
     case 88:
-      ACCEPT_TOKEN(sym__escaped_string);
+      ACCEPT_TOKEN(sym_docstring);
       if (lookahead == '\\') ADVANCE(48);
       if (lookahead != 0 &&
           lookahead != '\n') ADVANCE(88);
@@ -1163,7 +1163,7 @@ static const uint16_t ts_small_parse_table[] = {
       anon_sym_LF,
   [330] = 1,
     ACTIONS(111), 1,
-      sym__escaped_string,
+      sym_docstring,
   [334] = 1,
     ACTIONS(113), 1,
       anon_sym_DQUOTE,

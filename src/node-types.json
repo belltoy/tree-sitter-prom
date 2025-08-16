@@ -54,6 +54,16 @@
     "type": "help_line",
     "named": true,
     "fields": {
+      "metric_help": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "docstring",
+            "named": true
+          }
+        ]
+      },
       "metric_name": {
         "multiple": false,
         "required": true,
@@ -208,6 +218,10 @@
   {
     "type": "TYPE",
     "named": false
+  },
+  {
+    "type": "docstring",
+    "named": true
   },
   {
     "type": "identifier",

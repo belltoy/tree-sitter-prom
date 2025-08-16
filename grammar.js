@@ -30,7 +30,7 @@ module.exports = grammar({
       token("#"),
       token("HELP"),
       field("metric_name", $._metric_name),
-      field("metric_help", $._escaped_string),
+      field("metric_help", $.docstring),
       '\n'
     ),
 
@@ -88,6 +88,6 @@ module.exports = grammar({
     // https://go.dev/ref/spec#Integer_literals
     _timestamp: $ => alias(/[0-9]+/, $.number),
 
-    _escaped_string: $ => /([^\n\\]|\\[n\\])*/,
+    docstring: $ => /([^\n\\]|\\[n\\])*/,
   }
 });

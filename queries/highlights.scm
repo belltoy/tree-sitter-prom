@@ -4,6 +4,11 @@
   (help_line)
 ] @comment
 
+(comment) @spell
+
+(help_line
+  metric_help: (docstring) @spell)
+
 [
   "TYPE"
   "HELP"

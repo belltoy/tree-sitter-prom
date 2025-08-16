@@ -73,7 +73,7 @@
           "name": "metric_help",
           "content": {
             "type": "SYMBOL",
-            "name": "_escaped_string"
+            "name": "docstring"
           }
         },
         {
@@ -397,7 +397,7 @@
       "named": true,
       "value": "number"
     },
-    "_escaped_string": {
+    "docstring": {
       "type": "PATTERN",
       "value": "([^\\n\\\\]|\\\\[n\\\\])*"
     }
